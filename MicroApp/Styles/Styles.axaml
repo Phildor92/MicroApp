@@ -1,0 +1,16 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="Label.keywords">
+        <Setter Property="FontStyle" Value="Italic"></Setter>
+    </Style>
+    
+    <Style Selector="Label.h1">
+        <Setter Property="FontSize" Value="24"></Setter>
+    </Style>
+</Styles>

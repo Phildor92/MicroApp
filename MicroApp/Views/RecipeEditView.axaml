@@ -1,0 +1,116 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:avalonia="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:MicroApp.ViewModels"
+             xmlns:converters="clr-namespace:MicroApp.Converters"
+             xmlns:models="clr-namespace:MicroApp.Data.Recipes.Models;assembly=MicroApp.Data"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MicroApp.Views.RecipeEditView"
+             x:DataType="viewModels:RecipeEditViewModel">
+    <UserControl.Resources>
+        <converters:NullBoolConverter x:Key="NullBoolConverter" />
+        <converters:InvertedNullBoolConverter x:Key="InvertedNullBoolConverter" />
+    </UserControl.Resources>
+    <Design.DataContext>
+        <viewModels:RecipeEditViewModel />
+    </Design.DataContext>
+    <ScrollViewer>
+        <StackPanel Orientation="Vertical" Margin="30,0" Spacing="25">
+            <Label>Edit Recipe</Label>
+            <TextBox Watermark="Title" x:Name="TitleTextBox" Text="{Binding Recipe.Title}" />
+            <TextBox Watermark="Description" x:Name="DescriptionTextBox" Text="{Binding Recipe.Description}" />
+            <StackPanel>
+                <Label Content="Source:"></Label>
+                <TextBox Watermark="Source" x:Name="SourceTextBox" Text="{Binding Recipe.Source}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Add Temperature" Command="{Binding AddTemperatureCommand}"
+                        IsVisible="{Binding Temperature,  Converter={StaticResource NullBoolConverter}}">
+                </Button>
+                <Label Content="Temperature:"></Label>
+                <TextBox Watermark="Temperature Description" x:Name="TemperatureDescriptionTextBox"
+                       Text="{Binding Temperature.Description}"
+                       IsVisible="{Binding Temperature,  Converter={StaticResource InvertedNullBoolConverter}}" />
+                <TextBox Watermark="Temperature Value" x:Name="TemperatureValueTextBox"
+                       Text="{Binding Temperature.Amount}"
+                       IsVisible="{Binding Temperature,  Converter={StaticResource InvertedNullBoolConverter}}" />
+                <TextBox Watermark="Temperature Unit" x:Name="TemperatureUnitTextBox" Text="{Binding Temperature.Unit}"
+                       IsVisible="{Binding Temperature,  Converter={StaticResource InvertedNullBoolConverter}}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Add Servings" Command="{Binding AddServingsCommand}"
+                        IsVisible="{Binding Servings,  Converter={StaticResource NullBoolConverter}}">
+                </Button>
+                <Label Content="Servings:"/>
+                <TextBox Watermark="Servings" x:Name="ServingsMinTextBox" Text="{Binding Servings.MinAmount}"
+                       IsVisible="{Binding Servings,  Converter={StaticResource InvertedNullBoolConverter}}" />
+                <TextBox Watermark="Servings" x:Name="ServingsMaxTextBox" Text="{Binding Servings.MaxAmount}"
+                       IsVisible="{Binding Servings,  Converter={StaticResource InvertedNullBoolConverter}}" />
+            </StackPanel>
+            <ItemsControl x:Name="IngredientsCollectionView" ItemsSource="{Binding Ingredients, Mode=TwoWay}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="models:Ingredient">
+                        <Grid HorizontalAlignment="Left" MinWidth="500">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" Watermark="Name" Text="{Binding Name, Mode=TwoWay}" />
+                            <!-- <TextBox Text="{Binding Descriptors, Mode=TwoWay}" /> -->
+                            <TextBox Grid.Column="1" Watermark="Description"
+                                     Text="{Binding IngredientQuantity.Description, Mode=TwoWay}" />
+                            <TextBox Grid.Column="2" Watermark="Amount" Text="{Binding IngredientQuantity.Amount, Mode=TwoWay}" />
+                            <TextBox Grid.Column="3" Watermark="Unit" Text="{Binding IngredientQuantity.Unit, Mode=TwoWay}" />
+                            <!-- <TextBox Watermark="CustomQuantity" Text="{Binding CustomQuantity, Mode=TwoWay}" /> -->
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Button Content="Add Ingredient" Command="{Binding AddIngredientCommand}" />
+            <ItemsControl x:Name="KeywordsCollectionView" ItemsSource="{Binding Keywords}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="models:Keyword">
+                        <TextBox HorizontalAlignment="Left" MinWidth="300" Watermark="Name" Text="{Binding Name}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Button Content="Add Keyword" Command="{Binding AddKeywordCommand}" />
+            <ItemsControl x:Name="DurationsCollectionView" ItemsSource="{Binding Durations}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="models:Measurement">
+                        <Grid MinWidth="500" HorizontalAlignment="Left">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" Watermark="Description" Text="{Binding Description, Mode=TwoWay}" />
+                            <TextBox Grid.Column="1" Watermark="Amount" Text="{Binding Amount, Mode=TwoWay}" />
+                            <TextBox Grid.Column="2" Watermark="Unit" Text="{Binding Unit, Mode=TwoWay}" />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Button Content="Add Duration" Command="{Binding AddDurationCommand}" />
+            <ItemsControl x:Name="StepsCollectionView" ItemsSource="{Binding Steps}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="models:Step">
+                        <Border Name="StepDraggable" PointerPressed="InputElement_OnPointerPressed" PointerReleased="InputElement_OnPointerReleased" BorderThickness="0" Background="White">
+                        <StackPanel Orientation="Horizontal" DragDrop.AllowDrop="True" >
+                            <Label MinWidth="20" Content="{Binding Order, Mode=TwoWay}"></Label>
+                            <TextBox MinWidth="300" Watermark="Description" Text="{Binding Description, Mode=TwoWay}" />    
+                        </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Button Content="Add Step" Command="{Binding AddStepCommand}" />
+            <Button Command="{Binding SaveChangesCommand}" Content="Save"></Button>
+            <Button Command="{Binding NewRecipeCommand}" Content="New Recipe"></Button>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

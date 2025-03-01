@@ -1,0 +1,125 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:MicroApp.ViewModels"
+             xmlns:converters="clr-namespace:MicroApp.Converters"
+             xmlns:models="clr-namespace:MicroApp.Data.Recipes.Models;assembly=MicroApp.Data"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MicroApp.Views.RecipeDisplayView"
+             x:DataType="viewModels:RecipeDisplayViewModel">
+    <UserControl.Resources>
+        <converters:NullBoolConverter x:Key="NullBoolConverter" />
+        <converters:InvertedNullBoolConverter x:Key="InvertedNullBoolConverter" />
+    </UserControl.Resources>
+    <Design.DataContext>
+        <viewModels:RecipeDisplayViewModel />
+    </Design.DataContext>
+    <ScrollViewer>
+        <Grid RowDefinitions="*,auto,auto,*" ColumnDefinitions="*,auto,auto,*">
+            <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Margin="30,0" Orientation="Vertical" Spacing="2">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Title:" Classes="h1"></Label>
+                    <Label x:Name="TitleLabel" Classes="h1" Content="{Binding Recipe.Title}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <!-- <Label Content="Keywords"></Label> -->
+                    <Label x:Name="KeywordsLabel" Classes="keywords" Content="{Binding Keywords}"></Label>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Description:"></Label>
+                    <Label x:Name="DescriptionLabel" Content="{Binding Recipe.Description}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Source:"></Label>
+                    <Label x:Name="SourceLabel" Content="{Binding Recipe.Source}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Temperature:"></Label>
+                    <Label x:Name="TemperatureLabel" Content="{Binding Recipe.Temperature}"
+                           IsVisible="{Binding Recipe.Temperature,  Converter={StaticResource InvertedNullBoolConverter}}">
+                    </Label>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Servings:"></Label>
+                    <Label x:Name="ServingsLabel" Content="{Binding Recipe.Servings}"
+                           IsVisible="{Binding Recipe.Servings,  Converter={StaticResource InvertedNullBoolConverter}}">
+                    </Label>
+                </StackPanel>
+                <Separator />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Grid.Row="2" Margin="30,0" Orientation="Vertical" Spacing="5">
+                <StackPanel Orientation="Horizontal">
+                    <ItemsControl ItemsSource="{Binding Recipe.Durations}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="models:Measurement">
+                                <Label Content="{Binding }"></Label>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Ingredients:"></Label>
+                    <ItemsControl ItemsSource="{Binding Recipe.Ingredients}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="models:Ingredient">
+                                <Label Content="{Binding}"></Label>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Grid.Column="2">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Steps:"></Label>
+                    <ItemsControl ItemsSource="{Binding Recipe.Steps}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="models:Step">
+                                <Label Content="{Binding }"></Label>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <!-- <Grid Margin="30,0" RowDefinitions="*,auto,auto,auto,auto,auto,auto,auto,auto,auto,*" ColumnDefinitions="*,auto,auto,*"> -->
+        <!--     <Label Grid.Row="1" Grid.Column="1" Content="Title"></Label> -->
+        <!--     <Label Grid.Row="1" Grid.Column="2" x:Name="TitleLabel" Content="{Binding Recipe.Title}" /> -->
+        <!--     <Label Grid.Row="2" Grid.Column="1" Content="Description"></Label> -->
+        <!--     <Label Grid.Row="2" Grid.Column="2" x:Name="DescriptionLabel" Content="{Binding Recipe.Description}" /> -->
+        <!--     <Label Grid.Row="3" Grid.Column="1" Content="Source"></Label> -->
+        <!--     <Label Grid.Row="3" Grid.Column="2" x:Name="SourceLabel" Content="{Binding Recipe.Source}" /> -->
+        <!--     <Label Grid.Row="4" Grid.Column="1" Content="Temperature"></Label> -->
+        <!--     <Label Grid.Row="4" Grid.Column="2" x:Name="TemperatureLabel" Content="{Binding Recipe.Temperature}" IsVisible="{Binding Recipe.Temperature,  Converter={StaticResource InvertedNullBoolConverter}}"></Label> -->
+        <!--     <Label Grid.Row="5" Grid.Column="1" Content="Servings"></Label> -->
+        <!--     <Label Grid.Row="5" Grid.Column="2" x:Name="ServingsLabel" Content="{Binding Recipe.Servings}" IsVisible="{Binding Recipe.Servings,  Converter={StaticResource InvertedNullBoolConverter}}"></Label> -->
+        <!--     <Label Grid.Row="6" Grid.Column="1" Content="Ingredients"></Label> -->
+        <!--     <ListBox Grid.Row="6" Grid.Column="2" ItemsSource="{Binding Recipe.Ingredients}"> -->
+        <!--         <ListBox.ItemTemplate> -->
+        <!--             <DataTemplate x:DataType="models:Ingredient"> -->
+        <!--                 <Label Content="{Binding}"></Label> -->
+        <!--             </DataTemplate> -->
+        <!--         </ListBox.ItemTemplate> -->
+        <!--     </ListBox> -->
+        <!--     <Label Grid.Row="7" Grid.Column="1" Content="Keywords"></Label> -->
+        <!--     <Label Grid.Row="7" Grid.Column="2" x:Name="KeywordsLabel" Content="{Binding Keywords}"></Label> -->
+        <!--     <Label Grid.Row="8" Grid.Column="1" Content="Durations"></Label> -->
+        <!--     <ListBox Grid.Row="8" Grid.Column="2" ItemsSource="{Binding Recipe.Durations}"> -->
+        <!--         <ListBox.ItemTemplate> -->
+        <!--             <DataTemplate x:DataType="models:Measurement"> -->
+        <!--                 <Label Content="{Binding }"></Label> -->
+        <!--             </DataTemplate> -->
+        <!--         </ListBox.ItemTemplate> -->
+        <!--     </ListBox> -->
+        <!--     <Label Grid.Row="9" Grid.Column="1" Content="Steps"></Label> -->
+        <!--     <ListBox Grid.Row="9" Grid.Column="2" ItemsSource="{Binding Recipe.Steps}"> -->
+        <!--         <ListBox.ItemTemplate> -->
+        <!--             <DataTemplate x:DataType="models:Step"> -->
+        <!--                 <Label Content="{Binding }"></Label> -->
+        <!--             </DataTemplate> -->
+        <!--         </ListBox.ItemTemplate> -->
+        <!--     </ListBox> -->
+        <!-- </Grid> -->
+    </ScrollViewer>
+</UserControl>

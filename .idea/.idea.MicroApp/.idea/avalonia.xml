@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="MicroApp/App.axaml" value="MicroApp.Browser/MicroApp.Browser.csproj" />
+        <entry key="MicroApp/Styles/Styles.axaml" value="MicroApp.Browser/MicroApp.Browser.csproj" />
+        <entry key="MicroApp/Views/MainView.axaml" value="MicroApp.Browser/MicroApp.Browser.csproj" />
+        <entry key="MicroApp/Views/MainWindow.axaml" value="MicroApp.Browser/MicroApp.Browser.csproj" />
+        <entry key="MicroApp/Views/RecipeDisplayView.axaml" value="MicroApp.Desktop/MicroApp.Desktop.csproj" />
+        <entry key="MicroApp/Views/RecipeEditView.axaml" value="MicroApp.Browser/MicroApp.Browser.csproj" />
+        <entry key="MicroApp/Views/Recipes/RecipeDisplay/RecipeDisplayUserControl.axaml" value="MicroApp.Browser/MicroApp.Browser.csproj" />
+        <entry key="MicroApp/Views/Recipes/RecipeDisplay/RecipeDisplayView.axaml" value="MicroApp.Browser/MicroApp.Browser.csproj" />
+      </map>
+    </option>
+  </component>
+</project>
