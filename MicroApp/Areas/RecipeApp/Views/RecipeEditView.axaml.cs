@@ -2,11 +2,12 @@
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.VisualTree;
+using MicroApp.Areas.RecipeApp.ViewModels;
 using MicroApp.Data.Recipes.Models;
+using MicroApp.Areas.RecipeApp.ViewModels;
 using MicroApp.Services;
-using MicroApp.ViewModels;
 
-namespace MicroApp.Views;
+namespace MicroApp.Areas.RecipeApp.Views;
 
 public partial class RecipeEditView : UserControl
 {

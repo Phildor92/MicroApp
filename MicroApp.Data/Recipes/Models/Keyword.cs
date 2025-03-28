@@ -7,6 +7,8 @@ public class Keyword : Model
     [MaxLength(120)]
     public required string Name { get; set; }
 
+    public override string Key => Name;
+
     public override string ToString()
     {
         return Name;

@@ -5,15 +5,16 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using System.Linq;
 using Avalonia.Markup.Xaml;
+using MicroApp.Areas.Home.Views;
 using MicroApp.Data.Recipes.Context;
 using MicroApp.Lib.Configuration;
+using MicroApp.Areas.RecipeApp.Views;
 using MicroApp.Services;
-using MicroApp.ViewModels;
-using MicroApp.Views;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Devices;
 using Serilog;
+using MainViewModel = MicroApp.Areas.Home.ViewModels.MainViewModel;
 
 namespace MicroApp;
 

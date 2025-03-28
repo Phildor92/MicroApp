@@ -10,7 +10,7 @@ public static class ResourceHostExtensions
     public static IServiceProvider GetServiceProvider(this IResourceHost control)
     {
         return (IServiceProvider?)Application.Current.FindResource(typeof(IServiceProvider)) ??
-               throw new Exception("Expected service provider missing");
+               throw new("Expected service provider missing");
     }
 
     public static T CreateInstance<T>(this IResourceHost control)

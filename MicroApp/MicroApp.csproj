@@ -12,6 +12,7 @@
 
     <ItemGroup>
         <PackageReference Include="Avalonia"/>
+        <PackageReference Include="Avalonia.Controls.DataGrid" />
         <PackageReference Include="Avalonia.Themes.Fluent"/>
         <PackageReference Include="Avalonia.Fonts.Inter"/>
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
@@ -35,15 +36,25 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Views\RecipeDisplayView.axaml.cs">
-        <DependentUpon>RecipeDisplayView.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
       <None Include="appsettings.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Areas\RecipeApp\Views\RecipeDisplayView.axaml" />
+      <AdditionalFiles Include="Areas\RecipeApp\Views\RecipeEditView.axaml" />
+      <AdditionalFiles Include="Areas\RecipeApp\Views\RecipeListView.axaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Areas\Home\Views\MainView.axaml.cs">
+        <DependentUpon>MainView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Areas\Home\Views\MainWindow.axaml.cs">
+        <DependentUpon>MainWindow.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
     </ItemGroup>
 </Project>

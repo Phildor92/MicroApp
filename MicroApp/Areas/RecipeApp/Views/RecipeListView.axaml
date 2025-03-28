@@ -1,0 +1,53 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:MicroApp.Converters"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             xmlns:viewModels="clr-namespace:MicroApp.Areas.RecipeApp.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MicroApp.Areas.RecipeApp.Views.RecipeListView" Name="RecipeListViewUserControl" x:DataType="viewModels:RecipeListViewModel">
+    <UserControl.Resources>
+        <converters:ListToStringConverter x:Key="ListToStringConverter" />
+        <system:Int32 x:Key="ZeroId">0</system:Int32>
+    </UserControl.Resources>
+    <Design.DataContext>
+        <viewModels:RecipeListViewModel />
+    </Design.DataContext>
+    <StackPanel>
+        <DataGrid Name="DataGrid" x:DataType="viewModels:RecipeListViewModel" Margin="20"
+                  ItemsSource="{Binding Recipes}" AutoGenerateColumns="False" IsReadOnly="True"
+                  GridLinesVisibility="All" BorderBrush="Gray" BorderThickness="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Title}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Source" Binding="{Binding Source}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Keywords"
+                                    Binding="{Binding Keywords, Converter={StaticResource ListToStringConverter}}">
+                </DataGridTextColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Edit"
+                                    Command="{Binding Path=((viewModels:RecipeListViewModel)DataContext).EditRecipeCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}, Mode=FindAncestor}}"
+                                    CommandParameter="{Binding Id}">
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="View"
+                                    Command="{Binding Path=((viewModels:RecipeListViewModel)DataContext).ViewRecipeCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                    CommandParameter="{Binding Id}">
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Command="{Binding EditRecipeCommand}" CommandParameter="{StaticResource ZeroId}" >New Recipe</Button>
+        <Button Command="{Binding ImportRecipesCommand}">Import</Button>
+    </StackPanel>
+</UserControl>

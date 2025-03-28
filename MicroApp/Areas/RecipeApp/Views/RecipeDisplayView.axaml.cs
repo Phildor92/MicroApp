@@ -1,8 +1,8 @@
 ﻿using Avalonia.Controls;
 using MicroApp.Services;
-using MicroApp.ViewModels;
+using RecipeDisplayViewModel = MicroApp.Areas.RecipeApp.ViewModels.RecipeDisplayViewModel;
 
-namespace MicroApp.Views;
+namespace MicroApp.Areas.RecipeApp.Views;
 
 public partial class RecipeDisplayView : UserControl
 {

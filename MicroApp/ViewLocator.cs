@@ -1,8 +1,10 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
+using MicroApp.Areas.Home.ViewModels;
+using MicroApp.Areas.RecipeApp.ViewModels;
+using MicroApp.Areas.RecipeApp.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
-using MicroApp.ViewModels;
 
 namespace MicroApp;
 

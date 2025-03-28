@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace MicroApp.ViewModels;
+namespace MicroApp.Areas.Home.ViewModels;
 
 public abstract class ViewModel : ObservableObject
 {

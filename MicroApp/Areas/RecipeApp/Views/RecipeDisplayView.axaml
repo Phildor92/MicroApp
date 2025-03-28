@@ -2,22 +2,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:viewModels="clr-namespace:MicroApp.ViewModels"
+             xmlns:viewModels="clr-namespace:MicroApp.Areas.RecipeApp.ViewModels"
              xmlns:converters="clr-namespace:MicroApp.Converters"
              xmlns:models="clr-namespace:MicroApp.Data.Recipes.Models;assembly=MicroApp.Data"
+             xmlns:viewModels1="clr-namespace:MicroApp.Areas.RecipeApp.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="MicroApp.Views.RecipeDisplayView"
-             x:DataType="viewModels:RecipeDisplayViewModel">
+             x:Class="MicroApp.Areas.RecipeApp.Views.RecipeDisplayView"
+             x:DataType="viewModels1:RecipeDisplayViewModel">
     <UserControl.Resources>
         <converters:NullBoolConverter x:Key="NullBoolConverter" />
         <converters:InvertedNullBoolConverter x:Key="InvertedNullBoolConverter" />
     </UserControl.Resources>
     <Design.DataContext>
-        <viewModels:RecipeDisplayViewModel />
+        <viewModels1:RecipeDisplayViewModel />
     </Design.DataContext>
     <ScrollViewer>
-        <Grid RowDefinitions="*,auto,auto,*" ColumnDefinitions="*,auto,auto,*">
-            <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Margin="30,0" Orientation="Vertical" Spacing="2">
+        <Grid RowDefinitions="*,auto,auto,auto,*" ColumnDefinitions="*,auto,auto,*">
+            <Button Grid.Column="1" Grid.Row="1" Command="{Binding BackCommand}">Back</Button>
+            <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" Margin="30,0" Orientation="Vertical" Spacing="2">
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Title:" Classes="h1"></Label>
                     <Label x:Name="TitleLabel" Classes="h1" Content="{Binding Recipe.Title}" />
@@ -48,7 +50,7 @@
                 </StackPanel>
                 <Separator />
             </StackPanel>
-            <StackPanel Grid.Column="1" Grid.Row="2" Margin="30,0" Orientation="Vertical" Spacing="5">
+            <StackPanel Grid.Column="1" Grid.Row="3" Margin="30,0" Orientation="Vertical" Spacing="5">
                 <StackPanel Orientation="Horizontal">
                     <ItemsControl ItemsSource="{Binding Recipe.Durations}">
                         <ItemsControl.ItemTemplate>
@@ -69,7 +71,7 @@
                     </ItemsControl>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Grid.Row="2" Grid.Column="2">
+            <StackPanel Grid.Row="3" Grid.Column="2">
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Steps:"></Label>
                     <ItemsControl ItemsSource="{Binding Recipe.Steps}">

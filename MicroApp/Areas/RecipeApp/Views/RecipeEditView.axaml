@@ -3,21 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:viewModels="clr-namespace:MicroApp.ViewModels"
              xmlns:converters="clr-namespace:MicroApp.Converters"
              xmlns:models="clr-namespace:MicroApp.Data.Recipes.Models;assembly=MicroApp.Data"
+             xmlns:viewModels="clr-namespace:MicroApp.Areas.RecipeApp.ViewModels"
+             xmlns:viewModels1="clr-namespace:MicroApp.Areas.RecipeApp.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="MicroApp.Views.RecipeEditView"
-             x:DataType="viewModels:RecipeEditViewModel">
+             x:Class="MicroApp.Areas.RecipeApp.Views.RecipeEditView"
+             x:DataType="viewModels1:RecipeEditViewModel">
     <UserControl.Resources>
         <converters:NullBoolConverter x:Key="NullBoolConverter" />
         <converters:InvertedNullBoolConverter x:Key="InvertedNullBoolConverter" />
     </UserControl.Resources>
     <Design.DataContext>
-        <viewModels:RecipeEditViewModel />
+        <viewModels1:RecipeEditViewModel />
     </Design.DataContext>
-    <ScrollViewer>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto">
         <StackPanel Orientation="Vertical" Margin="30,0" Spacing="25">
+            <Button Command="{Binding BackCommand}">Back</Button>
             <Label>Edit Recipe</Label>
             <TextBox Watermark="Title" x:Name="TitleTextBox" Text="{Binding Recipe.Title}" />
             <TextBox Watermark="Description" x:Name="DescriptionTextBox" Text="{Binding Recipe.Description}" />

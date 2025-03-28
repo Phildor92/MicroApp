@@ -9,6 +9,8 @@ public class Step : Model
     [Required, Range(0, int.MaxValue)]
     public required int Order { get; set; }
 
+    public override string Key => Description;
+
     public override string ToString()
     {
         return $"{Order}: {Description}";

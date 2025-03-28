@@ -4,12 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using MicroApp.Areas.Home.ViewModels;
 using MicroApp.Data.Recipes.Models;
 using MicroApp.Data.Recipes.Repositories;
 using MicroApp.Lib.Logging;
 using Microsoft.Extensions.Logging;
 
-namespace MicroApp.ViewModels;
+namespace MicroApp.Areas.RecipeApp.ViewModels;
 
 public class RecipeEditViewModel : ViewModel
 {
@@ -80,12 +82,19 @@ public class RecipeEditViewModel : ViewModel
     public ICommand NewRecipeCommand { get; set; }
     public ICommand AddTemperatureCommand { get; set; }
     public ICommand AddServingsCommand { get; set; }
+    public ICommand BackCommand { get; set; }
 
     public RecipeEditViewModel(ILogger<RecipeEditViewModel> logger)
     {
         _logger = logger;
         Recipes = _recipeRepository.GetAllModels();
-        Recipe = Recipes.FirstOrDefault() ?? new()
+        
+        var recipeIdRequest = WeakReferenceMessenger.Default.Send<ViewModelRequestIdMessage>();
+        
+        if(!recipeIdRequest.HasReceivedResponse)
+            return;
+        
+        Recipe = _recipeRepository.GetModelById(recipeIdRequest.Response) ?? new()
         {
             Title = "Title",
             Keywords = [],
@@ -120,6 +129,7 @@ public class RecipeEditViewModel : ViewModel
         AddServingsCommand = new RelayCommand(() => { Servings = new() { MinAmount = 2, MaxAmount = 4 }; });
         SaveChangesCommand = new RelayCommand(SaveChanges);
         NewRecipeCommand = new RelayCommand(NewRecipe);
+        BackCommand = new RelayCommand( () => WeakReferenceMessenger.Default.Send(new ViewModelChangedMessage(typeof(RecipeListViewModel), 0)));
     }
 
     public RecipeEditViewModel()
