@@ -51,7 +51,11 @@ jobs:
         git push origin v${{ steps.gitversion.outputs.SemVer }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+    - name: Create ZIP Archive
+      run: |
+        cd out
+        zip -r ../MicroApp_${{ steps.gitversion.outputs.SemVer }}.zip ./*
+        cd ..
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v2
       with:
@@ -60,8 +64,7 @@ jobs:
         body: "Automated release of version v${{ steps.gitversion.outputs.SemVer }}"
         draft: false
         prerelease: false
-        files: |
-          out/**/*
+        files: MicroApp_${{ steps.gitversion.outputs.SemVer }}.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
