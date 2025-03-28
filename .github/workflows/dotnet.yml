@@ -9,6 +9,9 @@ on:
   pull_request:
     branches: [ "master" ]
 
+permissions:
+  contents: write
+
 jobs:
   build:
 
@@ -46,6 +49,8 @@ jobs:
         git config --global user.email "github-actions@github.com"
         git tag v${{ steps.gitversion.outputs.SemVer }}
         git push origin v${{ steps.gitversion.outputs.SemVer }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v2
