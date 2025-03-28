@@ -40,7 +40,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet publish -c Release -o out
+      run: dotnet publish -c Release -o out --runtime win-x64
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: Create Git Tag
